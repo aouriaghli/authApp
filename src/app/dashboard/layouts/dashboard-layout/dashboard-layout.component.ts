@@ -14,4 +14,8 @@ export class DashboardLayoutComponent {
   // get user(){
   //   return this.authService.currentUser();
   // }
+
+  onLogOut(){
+    this.authService.logout();
+  }
 }
