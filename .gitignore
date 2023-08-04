@@ -40,5 +40,3 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-src/app/auth/pages/register-page/register-page.component.ts
-src/app/auth/pages/register-page/register-page.component.html

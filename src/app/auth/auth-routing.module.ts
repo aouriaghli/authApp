@@ -10,7 +10,7 @@ const routes: Routes = [
     component : AuthLayoutComponent,
     children:[
       { path: 'login', component: LoginPageComponent  },
-      { path: 'register', component: RegisterPageComponent  },
+      { path: 'register',  component: RegisterPageComponent  },
       { path: '**', redirectTo: 'login' },
     ]
   }

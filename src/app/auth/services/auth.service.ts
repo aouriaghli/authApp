@@ -3,6 +3,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environments';
 import { AuthStatus, CheckTokenResponse, LoginResponse, User } from '../interfaces';
+import { RegisterResponse } from '../interfaces/register-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class AuthService {
   private http = inject(HttpClient); //inyeccion de dependecias (otra forma de hacerlo, en vez de en el constructor)
 
   private readonly loginUrl:string = '/auth/login';
+  private readonly registerUrl:string = '/auth/register';
   private readonly checkTokenUrl:string = '/auth/check-token';
 
   private _currentUser = signal<User|null>(null);
@@ -47,6 +49,19 @@ export class AuthService {
                 //errores
                 catchError( err => throwError( () => err.error.message ))
             );
+  }
+
+  register(email:string, name:string, password:string):Observable<boolean>{
+    const url = `${this.baseUrl}${this.registerUrl}`;
+    const body =  {email, name, password};
+
+    return this.http.post<RegisterResponse>(url, body)
+    .pipe(
+        map( ({user, token}) => this.setAuthentication(user,token)),
+
+        //errores
+        catchError( err => throwError( () => err.error.message ))
+    );
   }
 
   checkAuthStatus(): Observable<boolean>{
