@@ -6,7 +6,7 @@ const routes: Routes = [
   {
     path: 'auth',
     //guards
-    canActivate: [isAuthenticatedGuard],
+    canActivate: [isNotAuthenticatedGuard],
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
   },
   {
